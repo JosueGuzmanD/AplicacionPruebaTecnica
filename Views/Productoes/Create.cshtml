@@ -1,0 +1,81 @@
+﻿@model AplicacionPruebaTecnica.Models.Producto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Producto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+
+            <h4>Variantes de Producto</h4>
+            <div id="variantes-container">
+                <div class="variante-form">
+                    <div class="form-group">
+                        <label class="control-label">Color</label>
+                        <input name="Variantes[0].Color" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Precio</label>
+                        <input name="Variantes[0].Precio" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label">Imagen</label>
+                        <input name="Variantes[0].ImageFile" type="file" class="form-control-file" accept="image/*"  />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="button" id="agregar-variante" class="btn btn-primary">Agregar Variante</button>
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver al listado</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            var contador = 1;
+
+            $('#agregar-variante').click(function () {
+                var nuevaVariante = $('.variante-form').first().clone();
+
+                nuevaVariante.find('input').each(function () {
+                    var nombreAtributo = $(this).attr('name');
+                    nombreAtributo = nombreAtributo.replace('[0]', '[' + contador + ']');
+                    $(this).attr('name', nombreAtributo);
+                    $(this).val('');
+                });
+
+                contador++;
+
+                $('#variantes-container').append(nuevaVariante);
+            });
+        });
+    </script>
+}

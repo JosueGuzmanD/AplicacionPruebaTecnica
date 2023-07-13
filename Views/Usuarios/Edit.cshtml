@@ -1,0 +1,56 @@
+﻿@model AplicacionPruebaTecnica.Models.ApplicationUserEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Usuarios</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="User.Id" value="@Model.User.Id" />
+            <div class="form-group">
+                <label asp-for="User.Nombre" class="control-label"></label>
+                <input asp-for="User.Nombre" class="form-control" />
+                <span asp-validation-for="User.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Apellido" class="control-label"></label>
+                <input asp-for="User.Apellido" class="form-control" />
+                <span asp-validation-for="User.Apellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Email" class="control-label"></label>
+                <input asp-for="User.Email" class="form-control" readonly style="pointer-events: none; background-color: #f8f9fa;" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+
+           
+            <div class="form-floating">
+                <select class="form-select" asp-for="SelectedRoleName" aria-label="Seleccionar rol">
+                    @foreach (var role in Model.RoleItems)
+                    {
+                        <option value="@role.Text" selected="(@role.Text == @Model.SelectedRoleName)">@role.Text</option>
+                    }
+                </select>
+                <label for="SelectedRole">Seleccionar rol</label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

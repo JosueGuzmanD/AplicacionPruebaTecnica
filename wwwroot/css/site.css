@@ -1,0 +1,68 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+:root {
+    --primary-color: #178769;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+}
+
+
+.navbar.bg-white {
+    background-color:  !important;
+    color: white !important;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    color: black
+}
+
+.nav-link text-dark{
+    color: white !important;
+}
+.navbar-brand {
+    color: black;
+    font: Segoe UI xx-large Times, sans-serif;
+}
+
+.navbar-nav .nav-link {  
+  border-bottom: none;
+}
+
+html, body {
+    background-color: #d3eaf2
+}
+
+a {
+    color: black; 
+    text-decoration: none;
+}
+
+    a:hover {
+        border-bottom: 1px solid;
+        background: #92B3BE;
+        text-decoration: none;
+    }
+
+.boton {
+    font-size: 14px; /* Ajusta el tamaño del texto */
+    padding-top: 8px; /* Ajusta el espaciado superior */
+}

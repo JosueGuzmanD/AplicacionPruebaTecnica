@@ -1,0 +1,8 @@
+﻿body {
+}
+:root {
+    --primary-color: #f3ca4c; /* Reemplaza #0000ff con el color deseado */
+}
+.btn-primary {
+    background-color: var(--primary-color);
+}

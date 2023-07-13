@@ -1,0 +1,104 @@
+﻿@using X.PagedList.Mvc.Core
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using X.PagedList
+@using PagedList.Mvc;
+@using Microsoft.AspNetCore.Identity
+@model IPagedList<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h1>Usuarios</h1>
+
+<head>
+
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+            .pagination .pagination-link {
+                margin: 0 5px;
+                padding: 5px 10px;
+                background-color: #f2f2f2;
+                border: 1px solid #ddd;
+                color: #333;
+                text-decoration: none;
+            }
+
+                .pagination .pagination-link:hover {
+                    background-color: #ddd;
+                }
+    </style>
+
+</head>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Email)
+            </th>
+            <th>
+                Rol Actual
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => user.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => user.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => user.Email)
+                </td>
+                <td>
+                    @{
+                        var userRole = user.Roles.FirstOrDefault();
+                        var roleName = userRole != null ? userRole.Role.Name : string.Empty;
+                    }
+                    @roleName
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Seller")){
+                        <a asp-action="Edit" asp-route-id="@user.Id">Editar</a>
+                        @("|")
+                    }
+
+                    @if(User.IsInRole("Admin") || User.IsInRole("Seller") || User.IsInRole("User"))
+                    {
+
+                        <a asp-action="Details" asp-route-id="@user.Id">Detalles</a>
+                        @("|")
+
+                        }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@user.Id">Eliminar</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<div class="pagination">
+    @if (Model.PageCount > 0)
+    {
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { numpag = page }))
+    }
+</div>

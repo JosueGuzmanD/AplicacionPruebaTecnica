@@ -1,0 +1,50 @@
+﻿@model AplicacionPruebaTecnica.Models.ProductoVariante
+
+@{
+    ViewData["Title"] = "EditVariante";
+}
+
+<h1>Edit</h1>
+
+<h4>Producto Variante</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditVariante">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div><img src="~/images/@Model.ImagenFileName" alt="Imagen del producto" width="15%" /></div>
+
+            <div class="form-group">
+                <label class="control-label">Imagen</label>
+                <input asp-for="ImageFile" type="file" accept="image/*" />
+                <input type="file" name="photo" accept="image/*" />
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <div class="boton">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+                <div class="boton">
+                    <button type="button" onclick="location.href='@Url.Action("Index")'" class="btn btn-primary">Volver a productos</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
